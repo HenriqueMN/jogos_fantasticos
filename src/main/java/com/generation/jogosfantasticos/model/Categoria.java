@@ -1,10 +1,17 @@
 package com.generation.jogosfantasticos.model;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -17,15 +24,19 @@ public class Categoria {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank(message = "É obrigatório escrever um nome para a categoria")
+	@NotBlank(message = "O nome da categoria é obrigatório.")
 	@Size(min = 3, max = 100, message = "O nome deve ter entre 3 e 100 caracteres.")
 	@Column(length = 100)
 	private String nome;
 
-	@NotBlank(message = "É obrigatório escrever uma decrição para a categoria")
+	@NotBlank(message = "A descrição da categoria é obrigatória.")
 	@Size(min = 20, max = 250, message = "A descrição deve ter entre 20 e 250 caracteres.")
 	@Column(length = 250)
 	private String descricao;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "categoria", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("categoria")
+	private List<Produto> produto;
 
 	public Long getId() {
 		return id;
@@ -49,6 +60,14 @@ public class Categoria {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}	
+	}
+	
+	public List<Produto> getProduto() {
+		return produto;
+	}
+
+	public void setProduto(List<Produto> produto) {
+		this.produto = produto;
+	}
 
 }
