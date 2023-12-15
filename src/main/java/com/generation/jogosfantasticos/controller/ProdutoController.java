@@ -75,7 +75,7 @@ public class ProdutoController {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 	
-	@ResponseStatus
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
 		Optional<Produto> produto = produtoRepository.findById(id);

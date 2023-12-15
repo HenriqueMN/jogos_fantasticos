@@ -21,25 +21,25 @@ public class Produto {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Long id;
+	private Long id;
 	
 	@NotBlank(message = "O nome do produto é obrigatório.")
 	@Size(min = 5, max = 100, message = "O nome deve ter entre 5 e 100 caracteres.")
 	@Column(length = 100)
-	String nome;
+	private String nome;
 	
 	@NotBlank(message = "A descrição do produto é obrigatória.")
 	@Size(max = 1000, message = "A descrição pode ter no máximo 1000 caracteres.")
 	@Column(length = 1000)
-	String descricao;
+	private String descricao;
 	
 	@NotNull(message = "O preço do produto é obrigatório.")
 	@Column(precision = 8, scale = 2) //= DECIMAL(8,2)
-	BigDecimal preco;
+	private BigDecimal preco;
 	
 	@ManyToOne
 	@JsonIgnoreProperties("produto")
-	Categoria categoria;
+	private Categoria categoria;
 
 	public Long getId() {
 		return id;

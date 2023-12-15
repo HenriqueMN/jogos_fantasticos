@@ -62,7 +62,7 @@ public class CategoriaController {
 				.orElse(ResponseEntity.status(404).build());
 	}
 	
-	@ResponseStatus
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
 		Optional<Categoria> categoria = categoriaRepository.findById(id);
